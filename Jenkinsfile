@@ -40,6 +40,7 @@ pipeline {
                     file: 'target/timesheet-devops-1.0.jar', 
                     type: 'jar'
                 ]],
+                credentialsId: '', // Set to empty string for anonymous access
                 groupId: 'tn.esprit.spring.services', 
                 nexusUrl: 'http://192.168.224.132:8081',
                 repository: 'maven-releases',
