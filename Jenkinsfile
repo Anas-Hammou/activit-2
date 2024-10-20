@@ -42,7 +42,9 @@ pipeline {
                 groupId: 'com.example',
                 nexusUrl: 'http://192.168.224.132:8081',
                 repository: 'maven-releases',
-                version: '1.0.0'
+                version: '1.0.0',
+                nexusVersion: 'nexus3', // Specify the Nexus version
+                protocol: 'http' // Specify the protocol
             }
         }
     }
