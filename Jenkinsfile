@@ -13,39 +13,40 @@ pipeline {
     stages {
         stage('Checkout Code') {
             steps {
-                // Updated Git repository URL
                 git branch: 'master',
-                url: 'https://github.com/Anas-Hammou/activit-2.git'
+                    url: 'https://github.com/Anas-Hammou/activit-2.git'
             }
         }
 
         stage('Compile Project') {
             steps {
-                sh 'mvn clean compile -DskipTests'
+                // Skip all tests during the compile phase
+                sh 'mvn clean compile -Dmaven.test.skip=true'
             }
         }
 
         stage('Package Application') {
             steps {
-                sh 'mvn package -DskipTests'
+                // Skip all tests during the package phase
+                sh 'mvn package -Dmaven.test.skip=true'
             }
         }
 
         stage('Upload Artifact to Nexus') {
             steps {
                 nexusArtifactUploader artifacts: [[
-                    artifactId: 'timesheet-devops', // Updated artifactId based on the POM
+                    artifactId: 'timesheet-devops', 
                     classifier: '',
-                    file: 'target/timesheet-devops-1.0.jar', // Ensure this matches your JAR file name
+                    file: 'target/timesheet-devops-1.0.jar', 
                     type: 'jar'
                 ]],
                 credentialsId: 'nexus-credentials',
-                groupId: 'tn.esprit.spring.services', // Updated groupId based on the POM
+                groupId: 'tn.esprit.spring.services', 
                 nexusUrl: 'http://192.168.224.132:8081',
                 repository: 'maven-releases',
                 version: '1.0',
-                nexusVersion: 'nexus3', // Specify the Nexus version
-                protocol: 'http' // Specify the protocol
+                nexusVersion: 'nexus3',
+                protocol: 'http'
             }
         }
     }
