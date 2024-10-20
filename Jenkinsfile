@@ -42,7 +42,7 @@ pipeline {
                 ]],
                 credentialsId: '', // Set to empty string for anonymous access
                 groupId: 'tn.esprit.spring.services', 
-                nexusUrl: 'http://192.168.224.132:8081',
+                nexusUrl: '192.168.224.132:8081',
                 repository: 'maven-releases',
                 version: '1.0',
                 nexusVersion: 'nexus3',
