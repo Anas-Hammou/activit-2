@@ -40,7 +40,6 @@ pipeline {
                     file: 'target/timesheet-devops-1.0.jar', 
                     type: 'jar'
                 ]],
-                credentialsId: 'nexus-credentials',
                 groupId: 'tn.esprit.spring.services', 
                 nexusUrl: 'http://192.168.224.132:8081',
                 repository: 'maven-releases',
