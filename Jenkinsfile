@@ -7,14 +7,13 @@ pipeline {
     }
 
     environment {
-        NEXUS_URL = 'http://192.168.224.132:8081/repository/maven-releases/'
+        NEXUS_URL = 'http://192.168.224.130:8081/repository/maven-releases/'
     }
 
     stages {
         stage('Checkout Code') {
             steps {
-                git branch: 'master',
-                    url: 'https://github.com/Anas-Hammou/activit-2.git'
+                git branch: 'master', url: 'https://github.com/Anas-Hammou/activit-2.git'
             }
         }
 
@@ -38,6 +37,13 @@ pipeline {
             steps {
                 // Use the copied settings file for packaging
                 sh 'mvn -s "$WORKSPACE/settings.xml" package -Dmaven.test.skip=true'
+            }
+        }
+
+        stage('Deploy to Nexus') {
+            steps {
+                // Deploy the application to Nexus
+                sh 'mvn -s "$WORKSPACE/settings.xml" deploy -Dmaven.test.skip=true'
             }
         }
     }
