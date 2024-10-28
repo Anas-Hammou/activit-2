@@ -28,7 +28,7 @@ pipeline {
         stage('Package Application') {
             steps {
                 // Skip all tests during the package phase
-                sh 'mvn -s $MAVEN_SETTINGS package -Dmaven.test.skip=true'
+                sh 'mvn -s ${WORKSPACE}/settings.xml package -Dmaven.test.skip=true'
             }
         }
     }
