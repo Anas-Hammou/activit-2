@@ -21,9 +21,8 @@ pipeline {
         stage('Copy Managed File') {
             steps {
                 script {
-                    // Copy managed file to workspace for access
-                    // Ensure that the settings file is named correctly
-                    sh 'cp $JENKINS_HOME/managed_files/package ${WORKSPACE}/settings.xml'
+                    // Ensure you correctly reference the managed file and handle spaces
+                    sh 'cp "$JENKINS_HOME/managed_files/package" "$WORKSPACE/settings.xml"'
                 }
             }
         }
@@ -38,7 +37,7 @@ pipeline {
         stage('Package Application') {
             steps {
                 // Use the copied settings file for packaging
-                sh 'mvn -s ${WORKSPACE}/settings.xml package -Dmaven.test.skip=true'
+                sh 'mvn -s "$WORKSPACE/settings.xml" package -Dmaven.test.skip=true'
             }
         }
     }
