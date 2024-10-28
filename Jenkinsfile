@@ -18,6 +18,16 @@ pipeline {
             }
         }
 
+        stage('Copy Managed File') {
+            steps {
+                script {
+                    // Copy managed file to workspace for access
+                    // Ensure that the settings file is named correctly
+                    sh 'cp $JENKINS_HOME/managed_files/package ${WORKSPACE}/settings.xml'
+                }
+            }
+        }
+
         stage('Compile Project') {
             steps {
                 // Skip all tests during the compile phase
@@ -27,7 +37,7 @@ pipeline {
 
         stage('Package Application') {
             steps {
-                // Skip all tests during the package phase
+                // Use the copied settings file for packaging
                 sh 'mvn -s ${WORKSPACE}/settings.xml package -Dmaven.test.skip=true'
             }
         }
